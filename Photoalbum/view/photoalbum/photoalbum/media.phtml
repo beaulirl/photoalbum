@@ -1,0 +1,29 @@
+<?php
+
+
+ $title = 'Галлерея';
+ $this->headTitle($title);
+ ?>
+ <h1><?php echo $this->escapeHtml($title); ?></h1>
+
+ <table class="table">
+ <tr>
+     <th>Title</th>
+     <th>FileName</th>
+     <th>Photo</th>
+     <th>&nbsp;</th>                    
+ </tr>
+ <?php foreach ($photouploads as $photoupload) : ?>
+ <tr>
+     <td><?php echo $this->escapeHtml($photoupload->title);?></td>
+     <td><?php echo $this->escapeHtml($photoupload->filename);?></td>
+    <td><img src="<?php echo $this->url('photoalbum', array('action'=>'showImage',
+                                                            'id' => $photoupload->id,
+                                                            'subaction' => 'full'));?>" /></td>
+    <td>
+         <a href="<?php echo $this->url('photoalbum',
+             array('action'=>'deletephoto', 'id' => $photoupload->id));?>">Delete</a>
+     </td>
+ </tr>
+ <?php endforeach; ?>
+ </table>

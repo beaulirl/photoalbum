@@ -1,0 +1,54 @@
+<section class="photoalbum">
+<h2>Добавить новое фото</h2>
+<?php if ($this->error): ?>
+<p class="error">
+There were one or more issues with your submission.
+Please correct them as indicated below.
+</p>
+<?php endif ?>
+<?php
+$form = $this->form;
+$form->prepare();
+$form->setAttribute('action', $this->url(NULL,
+array('controller'=>'Photoalbum', 'action' => 'addphotoprocess')));
+$form->setAttribute('method', 'post');
+$form->setAttribute('enctype', 'multipart/form-data');
+echo $this->form()->openTag($form);
+?>
+<?php
+$i=0;
+$addvalue = array();
+foreach ($photoalbums as $photoalbum) : 
+$addvalue[$i] = $photoalbum->name;
+$i++;
+ endforeach; ?>	
+<dl class="zend_form">
+<dt><?php echo $this->formLabel($form->get('imagetitle')); ?></dt>
+<dd><?php
+echo $this->formElement($form->get('imagetitle'));
+echo $this->formElementErrors($form->get('imagetitle'));
+?></dd>
+<dt><?php echo $this->formLabel($form->get('adress')); ?></dt>
+<dd><?php
+echo $this->formElement($form->get('adress'));
+echo $this->formElementErrors($form->get('adress'));
+?></dd>
+<dt><?php echo $this->formLabel($form->get('photoalbum_choice')); ?></dt>
+<dd><?php
+echo $this->formElement($form->get('photoalbum_choice')->setValueOptions($addvalue));
+echo $this->formElementErrors($form->get('photoalbum_choice'));
+?></dd>
+<dt><?php echo $this->formLabel($form->get('fileupload')); ?>
+</dt>
+<dd><?php
+echo $this->formElement($form->get('fileupload'));
+echo $this->formElementErrors($form->get('fileupload'));
+?></dd>
+<dd><?php
+echo $this->formHidden($form->get('data_download')->setValue(date("Y.m.d")));
+echo $this->formElement($form->get('submit'));
+echo $this->formElementErrors($form->get('submit'));
+?></dd>
+</dl>
+<?php echo $this->form()->closeTag() ?>
+</section>
